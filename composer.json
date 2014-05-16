@@ -1,7 +1,15 @@
 {
-    "name" : "HipChat api v2",
-    "description" : "Sdk for integration hipchat api v2",
+    "name" : "dustler/hipchat",
+    "type": "library",
+    "keywords": ["hipchat"],
+    "homepage": "http://github.com/dustler/hipchat",
+    "description" : "PHP library for HipChat APi v2",
     "minimum-stability": "beta",
+    "license" : "GPL 2",
+    "require" : {
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "4.*"
+    },
     "authors": [
         {
             "name": "cnam",
@@ -10,16 +18,8 @@
     ],
     "autoload" : {
         "psr-0" : {
-            "" : "vendor/",
-            "HipChat\\" : "src/"
-        },
-        "classmap" : [
-            "vendor/",
-            "src"
-        ]
-    },
-    "require": {
-        "guzzlehttp/guzzle": "4.*"
+            "HipChat" : "src"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
