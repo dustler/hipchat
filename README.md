@@ -1,7 +1,19 @@
 # HipChat api for PHP
-=======
 
 A PHP library for interacting with the HipChat REST API v2.
+
+## Composer Installation
+
+HipChat-PHP can be installed with Composer (http://getcomposer.org/).  Add the following to your
+composer.json file.  Composer will handle the autoloading.
+
+```json
+{
+    "require": {
+        "dustler/hipchat": "0.0.1"
+    }
+}
+```
 
 ## Usage
 
