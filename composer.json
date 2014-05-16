@@ -1,0 +1,27 @@
+{
+    "name" : "HipChat api v2",
+    "description" : "Sdk for integration hipchat api v2",
+    "minimum-stability": "beta",
+    "authors": [
+        {
+            "name": "cnam",
+            "email": "cnam812@gmail.com"
+        }
+    ],
+    "autoload" : {
+        "psr-0" : {
+            "" : "vendor/",
+            "HipChat\\" : "src/"
+        },
+        "classmap" : [
+            "vendor/",
+            "src"
+        ]
+    },
+    "require": {
+        "guzzlehttp/guzzle": "4.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}

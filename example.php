@@ -1,11 +1,5 @@
-# HipChat api for PHP
-=======
+<?php
 
-A PHP library for interacting with the HipChat REST API v2.
-
-## Usage
-
-```php
 include "vendor/autoload.php";
 
 use HipChat\Api;
@@ -29,4 +23,3 @@ foreach ($hc->getUserRepo()->getUsers() as $user) {
 $hc->getUserRepo()->messageUser('SomeUser', 'Hello from sdk');
 
 $hc->getRoomRepo()->getRoomHistory('My room');
-```
