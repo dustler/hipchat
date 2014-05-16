@@ -4,7 +4,7 @@
     "keywords": ["hipchat"],
     "homepage": "http://github.com/dustler/hipchat",
     "description" : "PHP library for HipChat APi v2",
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "license" : "GPL 2",
     "require" : {
         "php": ">=5.4.0",
