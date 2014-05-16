@@ -3,20 +3,20 @@
 
 namespace HipChat\Api;
 
+use HipChat\Http\ClientInterface;
 use HipChat\Api;
-use HipChat\Http\Curl;
 
 class Room
 {
 
     /**
-     * @var Curl
+     * @var ClientInterface
      */
-    private $curl;
+    private $client;
 
-    public function __construct($curl)
+    public function __construct(ClientInterface $client)
     {
-        $this->curl = $curl;
+        $this->client = $client;
     }
 
     /**
@@ -36,7 +36,7 @@ class Room
      */
     public function getRooms()
     {
-        $response = $this->curl->make_request('room');
+        $response = $this->client->make_request('room');
 
         return $response->items;
     }
@@ -50,7 +50,7 @@ class Room
      */
     public function getRoom($room_id)
     {
-        $response = $this->curl->make_request("room/$room_id");
+        $response = $this->client->make_request("room/$room_id");
 
         return $response;
     }
@@ -82,7 +82,7 @@ class Room
             'color'          => $color,
             'message_format' => $message_format
         );
-        $response = $this->curl->make_request("room/$room_id/notification", $args, Curl::QUERY_TYPE_POST);
+        $response = $this->client->make_request("room/$room_id/notification", $args, Curl::QUERY_TYPE_POST);
         return ($response->status == 'sent');
     }
 
@@ -106,7 +106,7 @@ class Room
      */
     public function getRoomHistory($room_id, $date = 'recent', $timezone = 'UTC', $startIndex = 0, $maxResults = 100, $reverse = true)
     {
-        $response = $this->curl->make_request("room/$room_id/history", array(
+        $response = $this->client->make_request("room/$room_id/history", array(
             'date'        => $date,
             'timezone'    => $timezone,
             'start-index' => $startIndex,
@@ -145,7 +145,7 @@ class Room
             'owner_user_id' => $ownerUserId,
             'privacy'       => $privacy
         );
-        $response = $this->curl->make_request("room", $args, Curl::QUERY_TYPE_POST);
+        $response = $this->client->make_request("room", $args, Curl::QUERY_TYPE_POST);
 
         return $response;
     }
@@ -161,7 +161,7 @@ class Room
      */
     public function deleteRoom($room_id_or_name)
     {
-        $response = $this->curl->make_request("room/" . $room_id_or_name, array(),'DELETE');
+        $response = $this->client->make_request("room/" . $room_id_or_name, array(),'DELETE');
 
         return ($response->status == 'ok');
     }
@@ -184,7 +184,7 @@ class Room
             'reason' => $reason
         );
 
-        $response = $this->curl->make_request('room/' . $room_id_or_name . '/invite/' . $user_id_or_email, $args, Curl::QUERY_TYPE_POST);
+        $response = $this->client->make_request('room/' . $room_id_or_name . '/invite/' . $user_id_or_email, $args, Curl::QUERY_TYPE_POST);
 
         return $response;
     }
@@ -197,7 +197,7 @@ class Room
         $args = array(
             'auth_test' => 'true'
         );
-        $response = $this->curl->make_request("room/$room_id/notification", $args);
+        $response = $this->client->make_request("room/$room_id/notification", $args);
 
         return $response;
     }
@@ -210,7 +210,7 @@ class Room
         if ($from) {
             $args['from'] = utf8_encode($from);
         }
-        $response = $this->curl->make_request("rooms/topic", $args, 'POST');
+        $response = $this->client->make_request("rooms/topic", $args, 'POST');
         return ($response->status == 'ok');
     }
 }

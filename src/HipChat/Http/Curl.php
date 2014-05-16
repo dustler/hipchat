@@ -6,7 +6,7 @@ namespace HipChat\Http;
 use HipChat\Api;
 use HipChat\Exception\Exception;
 
-class Curl
+class Curl implements ClientInterface
 {
     const QUERY_TYPE_POST = 'POST';
     const QUERY_TYPE_GET = 'GET';
@@ -16,9 +16,9 @@ class Curl
     private $api_target;
     private $api_version;
 
-    public function __construct($verify_ssl, $auth_token, $api_target, $api_version)
+    public function __construct($auth_token, $api_target, $api_version)
     {
-        $this->verify_ssl = $verify_ssl;
+        $this->verify_ssl = true;
         $this->auth_token = $auth_token;
         $this->api_version = $api_version;
         $this->api_target = $api_target;
@@ -81,4 +81,4 @@ class Curl
         $this->verify_ssl = (bool)$bool;
         return $this->verify_ssl;
     }
-} 
+}

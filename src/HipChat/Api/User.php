@@ -3,20 +3,20 @@
 
 namespace HipChat\Api;
 
+use HipChat\Http\ClientInterface;
 use HipChat\Api;
-use HipChat\Http\Curl;
 
 class User
 {
 
     /**
-     * @var Curl
+     * @var ClientInterface
      */
-    private $curl;
+    private $client;
 
-    public function __construct($curl)
+    public function __construct(ClientInterface $client)
     {
-        $this->curl = $curl;
+        $this->client = $client;
     }
 
     /**
@@ -38,7 +38,7 @@ class User
             'include-deleted' => $includeDelete
         );
 
-        $response = $this->curl->make_request("user", $args);
+        $response = $this->client->make_request("user", $args);
 
         return $response->items;
     }
@@ -68,7 +68,7 @@ class User
             'color'          => $color,
             'message_format' => $message_format
         );
-        $response = $this->curl->make_request("user/$userId/message", $args, Curl::QUERY_TYPE_POST);
+        $response = $this->client->make_request("user/$userId/message", $args, Curl::QUERY_TYPE_POST);
 
         return ($response->status == 'oK');
     }
@@ -84,7 +84,7 @@ class User
      */
     public function getUser($user_id_or_email)
     {
-        $response = $this->curl->make_request("user/$user_id_or_email");
+        $response = $this->client->make_request("user/$user_id_or_email");
 
         return $response->user;
     }
@@ -100,7 +100,7 @@ class User
      */
     public function deleteUser($user_id_or_email)
     {
-        $response = $this->curl->make_request('user/' . $user_id_or_email, array(), 'DELETE');
+        $response = $this->client->make_request('user/' . $user_id_or_email, array(), 'DELETE');
 
         return ($response->status == 'OK');
     }

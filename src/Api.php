@@ -3,7 +3,7 @@
 
 namespace HipChat;
 
-use HipChat\Http\Curl;
+use HipChat\Http\ClientInterface;
 use HipChat\Api\Room;
 use HipChat\Api\User;
 
@@ -53,25 +53,17 @@ class Api {
     const VERSION_1 = 'v1';
     const VERSION_2 = 'v2';
 
-    /*private $api_target;
-    private $auth_token;*/
-
     /**
-     * @var Curl
+     * @var ClientInterface
      */
-    private $curl;
+    private $client;
 
     private $user;
 
     private $room;
 
-    function __construct($auth_token, $api_target = self::DEFAULT_TARGET,
-                         $api_version = self::VERSION_2) {
-        /*$this->api_target = $api_target;
-        $this->auth_token = $auth_token;
-        $this->api_version = $api_version;*/
-
-        $this->curl = new Curl(true, $auth_token, $api_target, $api_version);
+    function __construct(ClientInterface $client) {
+        $this->client = $client;
     }
 
     /**
@@ -80,7 +72,7 @@ class Api {
     public function getUserRepo()
     {
         if ($this->user == null) {
-            $this->user = new User($this->curl);
+            $this->user = new User($this->client);
         }
 
         return $this->user;
@@ -92,7 +84,7 @@ class Api {
     public function getRoomRepo()
     {
         if ($this->room == null) {
-            $this->room = new Room($this->curl);
+            $this->room = new Room($this->client);
         }
 
         return $this->room;
