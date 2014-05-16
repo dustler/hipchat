@@ -23,7 +23,8 @@ include "vendor/autoload.php";
 use HipChat\Api;
 
 $token = 'YourTokenKey';
-$hc = new Api($token, Api::DEFAULT_TARGET, 'v2');
+$client = new \HipChat\Http\Client($token, HipChat\Api::DEFAULT_TARGET, 'v2');
+$hc = new HipChat\Api($client);
 
 // list rooms
 foreach ($hc->getRoomRepo()->getRooms() as $room) {
