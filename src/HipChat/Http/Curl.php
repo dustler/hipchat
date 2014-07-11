@@ -67,6 +67,7 @@ class Curl implements ClientInterface
         if ($http_method == 'GET') {
             $url .= '?'.http_build_query($args);
         } else {
+            $url .= '?'.http_build_query(array('auth_token' => $this->auth_token));
             $post_data = $args;
         }
 

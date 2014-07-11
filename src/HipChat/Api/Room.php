@@ -5,6 +5,7 @@ namespace HipChat\Api;
 
 use HipChat\Http\ClientInterface;
 use HipChat\Api;
+use HipChat\Http\Curl;
 
 class Room
 {
@@ -83,6 +84,7 @@ class Room
             'message_format' => $message_format
         );
         $response = $this->client->make_request("room/$room_id/notification", $args, Curl::QUERY_TYPE_POST);
+
         return ($response->status == 'sent');
     }
 
@@ -161,7 +163,7 @@ class Room
      */
     public function deleteRoom($room_id_or_name)
     {
-        $response = $this->client->make_request("room/" . $room_id_or_name, array(),'DELETE');
+        $response = $this->client->make_request("room/" . $room_id_or_name, array(), 'DELETE');
 
         return ($response->status == 'ok');
     }
@@ -189,12 +191,26 @@ class Room
         return $response;
     }
 
+    public function addWebhook($room_id_or_name, $params)
+    {
+        $args = array(
+            'url'     => $params['url'],
+            'pattern' => $params['pattern'],
+            'event'   => $params['event'],
+            'name'    => $params['name']
+        );
+
+        $response = $this->client->make_request('room/'.$room_id_or_name.'/webhook', $args, Curl::QUERY_TYPE_POST);
+
+        return $response;
+    }
+
     /**
      * Testing a token
      */
     public function testToken($room_id)
     {
-        $args = array(
+        $args     = array(
             'auth_test' => 'true'
         );
         $response = $this->client->make_request("room/$room_id/notification", $args);
@@ -202,15 +218,17 @@ class Room
         return $response;
     }
 
-    public function setRoomTopic($room_id, $topic, $from = null) {
+    public function setRoomTopic($room_id, $topic, $from = null)
+    {
         $args = array(
             'room_id' => $room_id,
-            'topic' => utf8_encode($topic),
+            'topic'   => utf8_encode($topic),
         );
         if ($from) {
             $args['from'] = utf8_encode($from);
         }
         $response = $this->client->make_request("rooms/topic", $args, 'POST');
+
         return ($response->status == 'ok');
     }
 }
