@@ -10,7 +10,7 @@ composer.json file.  Composer will handle the autoloading.
 ```json
 {
     "require": {
-        "dustler/hipchat": "1.0.1"
+        "dustler/hipchat": "1.*"
     }
 }
 ```
