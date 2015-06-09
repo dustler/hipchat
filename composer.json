@@ -16,6 +16,11 @@
             "email": "cnam812@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "HipChat\\": "src/HipChat"
+        }
+    },
     "autoload-dev" : {
         "psr-0" : {
             "HipChat" : "src",
