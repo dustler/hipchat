@@ -5,6 +5,7 @@ namespace HipChat\Api;
 
 use HipChat\Http\ClientInterface;
 use HipChat\Api;
+use HipChat\Http\Curl;
 
 class User
 {
