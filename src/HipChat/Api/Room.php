@@ -9,6 +9,7 @@ use HipChat\Http\Curl;
 
 class Room
 {
+    use ResponseError;
 
     /**
      * @var ClientInterface
@@ -38,7 +39,7 @@ class Room
     public function getRooms()
     {
         $response = $this->client->make_request('room');
-
+        $this->checkError($response);
         return $response->items;
     }
 
@@ -52,7 +53,7 @@ class Room
     public function getRoom($room_id)
     {
         $response = $this->client->make_request("room/$room_id");
-
+        $this->checkError($response);
         return $response;
     }
 
@@ -84,7 +85,7 @@ class Room
             'message_format' => $message_format
         );
         $response = $this->client->make_request("room/$room_id/notification", $args, Curl::QUERY_TYPE_POST);
-
+        $this->checkError($response);
         return ($response->status == 'sent');
     }
 
@@ -115,7 +116,7 @@ class Room
             'max-results' => $maxResults,
             'reverse'     => $reverse
         ));
-
+        $this->checkError($response);
         return $response->items;
     }
 
@@ -148,7 +149,7 @@ class Room
             'privacy'       => $privacy
         );
         $response = $this->client->make_request("room", $args, Curl::QUERY_TYPE_POST);
-
+        $this->checkError($response);
         return $response;
     }
 
@@ -164,7 +165,7 @@ class Room
     public function deleteRoom($room_id_or_name)
     {
         $response = $this->client->make_request("room/" . $room_id_or_name, array(), 'DELETE');
-
+        $this->checkError($response);
         return ($response->status == 'ok');
     }
 
@@ -187,7 +188,7 @@ class Room
         );
 
         $response = $this->client->make_request('room/' . $room_id_or_name . '/invite/' . $user_id_or_email, $args, Curl::QUERY_TYPE_POST);
-
+        $this->checkError($response);
         return $response;
     }
 
@@ -214,7 +215,7 @@ class Room
             'auth_test' => 'true'
         );
         $response = $this->client->make_request("room/$room_id/notification", $args);
-
+        $this->checkError($response);
         return $response;
     }
 
@@ -228,7 +229,7 @@ class Room
             $args['from'] = utf8_encode($from);
         }
         $response = $this->client->make_request("rooms/topic", $args, 'POST');
-
+        $this->checkError($response);
         return ($response->status == 'ok');
     }
 }

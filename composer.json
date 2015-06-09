@@ -6,7 +6,7 @@
     "description" : "PHP library for HipChat APi v2",
     "minimum-stability": "stable",
     "license" : "GPL 2",
-    "version": "1.0.3",
+    "version": "1.0.3.1",
     "require" : {
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": "3.8"
