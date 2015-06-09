@@ -9,7 +9,7 @@ use HipChat\Http\Curl;
 
 class User
 {
-
+    use ResponseError;
     /**
      * @var ClientInterface
      */
@@ -40,7 +40,7 @@ class User
         );
 
         $response = $this->client->make_request("user", $args);
-
+        $this->checkError($response);
         return $response->items;
     }
 
@@ -70,7 +70,7 @@ class User
             'message_format' => $message_format
         );
         $response = $this->client->make_request("user/$userId/message", $args, Curl::QUERY_TYPE_POST);
-
+        $this->checkError($response);
         return ($response->status == 'oK');
     }
 
@@ -86,7 +86,7 @@ class User
     public function getUser($user_id_or_email)
     {
         $response = $this->client->make_request("user/$user_id_or_email");
-
+        $this->checkError($response);
         return $response->user;
     }
 
@@ -102,7 +102,7 @@ class User
     public function deleteUser($user_id_or_email)
     {
         $response = $this->client->make_request('user/' . $user_id_or_email, array(), 'DELETE');
-
+        $this->checkError($response);
         return ($response->status == 'OK');
     }
 } 
